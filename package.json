@@ -1,0 +1,12 @@
+{
+  "name": "njangi-name-services",
+  "version": "0.0.1",
+  "description": "Njangi Name Services your number one leader of Web3 domains",
+  "main": "index.js",
+  "repository": "https://github.com/dezzydez007/Njangi-Name-Service.git",
+  "author": "dezzydez007 <nkefuan@yahoo.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "hardhat": "^2.9.3"
+  }
+}
