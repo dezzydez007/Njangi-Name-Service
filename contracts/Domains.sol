@@ -1,33 +1,34 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.10;
+pragma solidity ^0.8.10;
 
 // Don't forget to add this import
-import "./libraries/StringUtils.sol";
+import { StringUtils } from "./libraries/StringUtils.sol";
 import "hardhat/console.sol";
 
 contract Domains {
-  // Here's our domain njangi!
-  string public njangi;
+  // Here's our domain TLD!
+  string public tld;
 
   mapping(string => address) public domains;
   mapping(string => string) public records;
 		
   // We make the contract "payable" by adding this to the constructor
-  constructor(string memory _njangi) payable {
-    njangi = _njangi;
-    console.log("%s name service deployed", _njangi);
+  constructor(string memory _tld) payable {
+    tld = _tld;
+    console.log("%s name service deployed", _tld);
   }
+  
 		
   // This function will give us the price of a domain based on length
   function price(string calldata name) public pure returns(uint) {
     uint len = StringUtils.strlen(name);
     require(len > 0);
     if (len == 3) {
-      return 5 * 10**18; // 5 MATIC = 5 000 000 000 000 000 000 (18 decimals). We're going with 0.5 Matic cause the faucets don't give a lot
+      return 5 * 10**17; // 5 MATIC = 5 000 000 000 000 000 000 (18 decimals). We're going with 0.5 Matic cause the faucets don't give a lot
     } else if (len == 4) {
-      return 3 * 10**18; // To charge smaller amounts, reduce the decimals. This is 0.3
+      return 3 * 10**17; // To charge smaller amounts, reduce the decimals. This is 0.3
     } else {
-      return 1 * 10**18;
+      return 1 * 10**17;
     }
   }
 
@@ -43,4 +44,18 @@ contract Domains {
     console.log("%s has registered a domain!", msg.sender);
   }
   // Other functions unchanged
+  function setRecord(string calldata name, string calldata record) public {
+    // Check that the owner is the transaction sender
+    require(domains[name] == msg.sender);
+    records[name] = record;
+}
+
+function getRecord(string calldata name) public view returns(string memory) {
+    return records[name];
+}
+
+  function getAddress(string calldata name) public view returns (address) {
+    // Check that the owner is the transaction sender
+    return domains[name];
+}
 }
