@@ -6,7 +6,7 @@ const main = async () => {
     console.log("Contract deployed to:", domainContract.address);
   
     // CHANGE THIS DOMAIN TO SOMETHING ELSE! I don't want to see OpenSea full of web3verses lol
-    let txn = await domainContract.register("web3verse",  {value: hre.ethers.utils.parseEther('0.1')});
+    let txn = await domainContract.register("web3verse",  {value: hre.ethers.utils.parseEther('1')});
     await txn.wait();
     console.log("Minted domain web3verse.njangi");
   
