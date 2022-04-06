@@ -12,4 +12,7 @@ artifacts
 
 hardhat.config.js
 
+.env
+
+
 
